@@ -3,10 +3,14 @@ import youtube from '../api/YouTube';
 import SearchBar from './SearchBar';
 
 class App extends Component {
-   onTermSubmit = term => {
-      youtube.get('/search', {
+   state = {
+      videos: []
+   };
+   onTermSubmit = async term => {
+      const { data: { items } } = await youtube.get('/search', {
          params: { q: term }
       });
+      this.setState(() => ({ videos: items }));
    }
    render() {
       return (
