@@ -9,11 +9,17 @@ class App extends Component {
       videos: [],
       selectedVideo: null
    };
+   componentDidMount() {
+      this.onTermSubmit('predator');
+   }
    onTermSubmit = async term => {
       const { data: { items } } = await youtube.get('/search', {
          params: { q: term }
       });
-      this.setState(() => ({ videos: items }));
+      this.setState(() => ({ 
+         videos: items,
+         selectedVideo: items[0]
+      }));
    }
    onVideoSelect = video => {
       this.setState({ selectedVideo: video });
